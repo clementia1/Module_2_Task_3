@@ -1,0 +1,5 @@
+{
+  "LogsDir": "Logs",
+  "FileExtension": ".txt",
+  "DateTimeFormat": "hh.mm.ss dd.MM.yyyy"
+}

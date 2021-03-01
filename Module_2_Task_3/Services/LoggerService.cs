@@ -10,38 +10,25 @@ namespace Module_2_Task_3.Services
 {
     public class LoggerService
     {
-        public void Log(Logger logger, LogType type, string message)
+        public void Log(LogType type, string message)
         {
-            var timeStamp = DateTime.UtcNow;
-            var consoleMessage = $"{timeStamp}: {type}: {message}";
+            var consoleMessage = $"{DateTime.UtcNow}: {type}: {message}";
             Console.WriteLine(consoleMessage);
-
-            HistoryAppend(logger, message);
         }
 
-        public void LogInfo(Logger logger, string message)
+        public void LogInfo(string message)
         {
-            Log(logger, LogType.Info, message);
+            Log(LogType.Info, message);
         }
 
-        public void LogWarning(Logger logger, string message)
+        public void LogWarning(string message)
         {
-            Log(logger, LogType.Warning, message);
+            Log(LogType.Warning, message);
         }
 
-        public void LogError(Logger logger, string message)
+        public void LogError(string message)
         {
-            Log(logger, LogType.Error, message);
-        }
-
-        public void HistoryAppend(Logger logger, string message)
-        {
-            logger.History.AppendLine(message);
-        }
-
-        public string GetHistory(Logger logger)
-        {
-            return logger.History.ToString();
+            Log(LogType.Error, message);
         }
     }
 }

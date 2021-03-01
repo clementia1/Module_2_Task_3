@@ -8,5 +8,9 @@ namespace Module_2_Task_3.Models
 {
     public class BusinessException : Exception
     {
+        public BusinessException(string message)
+            : base(message)
+        {
+        }
     }
 }

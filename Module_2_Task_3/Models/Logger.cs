@@ -9,11 +9,5 @@ namespace Module_2_Task_3.Models
 {
     public class Logger
     {
-        static Logger()
-        {
-            History = new StringBuilder();
-        }
-
-        public static StringBuilder History { get; set; }
     }
 }

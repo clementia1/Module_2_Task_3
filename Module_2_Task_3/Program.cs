@@ -6,7 +6,8 @@ namespace Module_2_Task_3
     {
         public static void Main(string[] args)
         {
-            Console.WriteLine("Hello World!");
+            var starter = new Starter();
+            starter.Run();
         }
     }
 }
