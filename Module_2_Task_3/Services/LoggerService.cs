@@ -10,10 +10,17 @@ namespace Module_2_Task_3.Services
 {
     public class LoggerService
     {
+        private readonly FileService _fileService;
+
+        public LoggerService()
+        {
+            _fileService = new FileService();
+        }
+
         public void Log(LogType type, string message)
         {
             var consoleMessage = $"{DateTime.UtcNow}: {type}: {message}";
-            Console.WriteLine(consoleMessage);
+            _fileService.Write(consoleMessage);
         }
 
         public void LogInfo(string message)

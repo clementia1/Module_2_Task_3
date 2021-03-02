@@ -7,15 +7,15 @@ using System.IO;
 using System.Reflection;
 using Newtonsoft.Json;
 using Module_2_Task_3.Models;
+using Module_2_Task_3.Config;
 
 namespace Module_2_Task_3.Services
 {
     public class ConfigService
     {
-        public LoggerConfig GetConfig()
+        public LoggerConfig Read()
         {
-            var path = Path.Combine(Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location), @"Config\config.json");
-            var configFile = File.ReadAllText(path);
+            var configFile = File.ReadAllText(Constants.ConfigPath);
             var config = JsonConvert.DeserializeObject<LoggerConfig>(configFile);
             return config;
         }

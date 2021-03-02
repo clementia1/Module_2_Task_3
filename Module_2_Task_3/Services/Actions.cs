@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Module_2_Task_3.Models;
 
 namespace Module_2_Task_3.Services
 {
@@ -21,18 +22,14 @@ namespace Module_2_Task_3.Services
             return true;
         }
 
-        /*
-        public Result FakeMethodWithWarning()
+        public bool WarningMethod()
         {
-            var result = new Result { Status = true };
-            _logger.WriteMessage($"Skipped logic in method: {nameof(FakeMethodWithWarning)}", EventType.Warning);
-            return result;
+            throw new BusinessException("Skipped logic in method");
         }
 
-        public Result FakeMethodWithError()
+        public bool ErrorMethod()
         {
-            var result = new Result { Status = false, ErrorMessage = "I broke a logic" };
-            return result;
-        }*/
+            throw new Exception("I broke a logic");
+        }
     }
 }

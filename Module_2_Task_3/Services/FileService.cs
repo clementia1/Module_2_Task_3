@@ -10,21 +10,17 @@ namespace Module_2_Task_3.Services
 {
     public class FileService
     {
-        private readonly StreamWriter _streamWriter;
-        private readonly ConfigService _configService;
+        private readonly LoggerConfig _config;
+        private readonly string _filename;
+        private StreamWriter _streamWriter;
 
         public FileService()
         {
-            _configService = new ConfigService();
-            var config = _configService.GetConfig();
-            var fileName = DateTime.UtcNow.ToString(config.DateTimeFormat);
+            _config = new ConfigService().Read();
+            _filename = DateTime.UtcNow.ToString(_config.DateTimeFormat);
 
-            if (!Directory.Exists(config.LogsDir))
-            {
-                Directory.CreateDirectory(config.LogsDir);
-            }
-
-            _streamWriter = new StreamWriter($@"{config.LogsDir}\{fileName}{config.FileExtension}", true, Encoding.Default);
+            CreateDirIfNotExists(_config.LogsDir);
+            CountFilesInDir(_config.LogsDir);
         }
 
         ~FileService()
@@ -34,8 +30,35 @@ namespace Module_2_Task_3.Services
 
         public void Write(string text)
         {
-            _streamWriter.WriteLine(text);
-            _streamWriter.Flush();
+            using (_streamWriter = new StreamWriter($@"{_config.LogsDir}\{_filename}{_config.FileExtension}", true, Encoding.Default))
+            {
+                _streamWriter.WriteLine(text);
+            }
+        }
+
+        public void CreateDirIfNotExists(string path)
+        {
+            if (!Directory.Exists(path))
+            {
+                Directory.CreateDirectory(path);
+            }
+        }
+
+        public void CountFilesInDir(string path)
+        {
+            var fileNames = Directory.GetFiles(path);
+            var creationTimes = new DateTime[fileNames.Length];
+            for (int i = 0; i < fileNames.Length; i++)
+            {
+                creationTimes[i] = new FileInfo(fileNames[i]).CreationTime;
+            }
+
+            Array.Sort(creationTimes, fileNames);
+
+            for (int i = 0; i < fileNames.Length; i++)
+            {
+                Console.WriteLine(fileNames[i]);
+            }
         }
     }
 }
