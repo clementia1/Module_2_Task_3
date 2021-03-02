@@ -5,10 +5,11 @@ using System.Text;
 using System.Threading.Tasks;
 using Module_2_Task_3.Models;
 using Module_2_Task_3.Models.Enums;
+using Module_2_Task_3.Services.Abstractions;
 
 namespace Module_2_Task_3.Services
 {
-    public class LoggerService
+    public class LoggerService : ILoggerService
     {
         private readonly FileService _fileService;
 
@@ -20,7 +21,7 @@ namespace Module_2_Task_3.Services
         public void Log(LogType type, string message)
         {
             var consoleMessage = $"{DateTime.UtcNow}: {type}: {message}";
-            _fileService.Write(consoleMessage);
+            _fileService.WriteLine(consoleMessage);
         }
 
         public void LogInfo(string message)
